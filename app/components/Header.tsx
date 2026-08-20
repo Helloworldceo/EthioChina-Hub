@@ -70,6 +70,9 @@ export async function Header() {
 
           {user?.role === "member" && (
             <>
+              <Link href="/members" className={desktopLinkClass}>
+                Directory
+              </Link>
               <Link href="/dashboard" className={desktopLinkClass}>
                 My Profile
               </Link>
@@ -82,6 +85,9 @@ export async function Header() {
 
           {user?.role === "admin" && (
             <>
+              <Link href="/members" className={desktopLinkClass}>
+                Directory
+              </Link>
               <Link
                 href="/admin"
                 className="bg-stone-900 hover:bg-stone-800 text-white font-semibold px-4 py-2 rounded-lg transition-colors"
@@ -112,6 +118,9 @@ export async function Header() {
           )}
           {user?.role === "member" && (
             <>
+              <Link href="/members" className="py-1.5 hover:text-brand">
+                Directory
+              </Link>
               <Link href="/dashboard" className="py-1.5 hover:text-brand">
                 My Profile
               </Link>
@@ -123,6 +132,9 @@ export async function Header() {
           )}
           {user?.role === "admin" && (
             <>
+              <Link href="/members" className="py-1.5 hover:text-brand">
+                Directory
+              </Link>
               <Link href="/admin" className="py-1.5 hover:text-brand">
                 Admin
               </Link>

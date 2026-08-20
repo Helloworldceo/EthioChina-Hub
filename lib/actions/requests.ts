@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { supportRequestSchema, requestStatuses } from "@/lib/validations";
+import { checkRateLimit } from "@/lib/rateLimit";
 
 export type RequestState = {
   error?: string;
@@ -15,6 +16,11 @@ export async function submitSupportRequest(_prevState: RequestState, formData: F
   const session = await auth();
   if (!session?.user || session.user.role !== "member") {
     return { error: "You must be logged in as a member to submit a request." };
+  }
+
+  const { allowed } = await checkRateLimit(`support-request:${session.user.id}`, 10, 24 * 60 * 60 * 1000);
+  if (!allowed) {
+    return { error: "You've submitted several requests today. Please wait before submitting more." };
   }
 
   const raw = Object.fromEntries(formData.entries());

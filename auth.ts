@@ -4,6 +4,7 @@ import Google from "next-auth/providers/google";
 import type { Provider } from "next-auth/providers";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { checkRateLimit, clientIp } from "@/lib/rateLimit";
 
 const providers: Provider[] = [
   Credentials({
@@ -17,6 +18,10 @@ const providers: Provider[] = [
       const email = credentials?.email as string | undefined;
       const password = credentials?.password as string | undefined;
       if (!email || !password) return null;
+
+      const ip = await clientIp();
+      const { allowed } = await checkRateLimit(`login:${ip}:${email}`, 10, 15 * 60 * 1000);
+      if (!allowed) return null;
 
       const member = await prisma.member.findUnique({ where: { email } });
       if (!member?.passwordHash) return null;
@@ -44,6 +49,10 @@ const providers: Provider[] = [
       const email = credentials?.email as string | undefined;
       const password = credentials?.password as string | undefined;
       if (!email || !password) return null;
+
+      const ip = await clientIp();
+      const { allowed } = await checkRateLimit(`admin-login:${ip}:${email}`, 10, 15 * 60 * 1000);
+      if (!allowed) return null;
 
       const admin = await prisma.admin.findUnique({ where: { email } });
       if (!admin?.passwordHash) return null;

@@ -3,6 +3,7 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/validations";
+import { checkRateLimit, clientIp } from "@/lib/rateLimit";
 
 export type RegisterState = {
   error?: string;
@@ -11,6 +12,12 @@ export type RegisterState = {
 };
 
 export async function registerMember(_prevState: RegisterState, formData: FormData): Promise<RegisterState> {
+  const ip = await clientIp();
+  const { allowed } = await checkRateLimit(`register:${ip}`, 5, 60 * 60 * 1000);
+  if (!allowed) {
+    return { error: "Too many registration attempts. Please try again in an hour." };
+  }
+
   const raw = Object.fromEntries(formData.entries());
   const parsed = registerSchema.safeParse(raw);
 
