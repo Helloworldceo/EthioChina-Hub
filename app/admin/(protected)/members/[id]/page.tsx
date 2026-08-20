@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { EditMemberForm } from "./EditMemberForm";
+import { ResetPasswordForm } from "./ResetPasswordForm";
 
 export default async function AdminEditMemberPage(props: PageProps<"/admin/members/[id]">) {
   const { id } = await props.params;
@@ -15,6 +16,9 @@ export default async function AdminEditMemberPage(props: PageProps<"/admin/membe
         <span className="text-sm text-slate-400">{member.email}</span>
       </div>
       <EditMemberForm member={member} />
+      <div className="mt-4">
+        <ResetPasswordForm memberId={member.id} />
+      </div>
       <p className="text-sm text-slate-400 mt-4">
         <Link href="/admin/members" className="hover:underline">
           ← Back to members

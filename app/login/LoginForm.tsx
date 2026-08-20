@@ -88,6 +88,9 @@ export function LoginForm({ googleEnabled }: { googleEnabled: boolean }) {
           Register
         </Link>
       </p>
+      <p className="text-center text-xs text-slate-400">
+        Forgot your password? Ask a community admin to reset it for you.
+      </p>
     </div>
   );
 }

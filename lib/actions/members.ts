@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { put } from "@vercel/blob";
+import bcrypt from "bcryptjs";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { profileUpdateSchema, MAX_PHOTO_BYTES, ALLOWED_PHOTO_TYPES } from "@/lib/validations";
@@ -143,5 +144,25 @@ export async function adminUpdateMember(
   revalidatePath("/admin/members");
   revalidatePath(`/admin/members/${memberId}`);
   revalidatePath(`/members/${memberId}`);
+  return { success: true };
+}
+
+export type ResetPasswordState = { error?: string; success?: boolean };
+
+export async function adminResetMemberPassword(
+  memberId: string,
+  _prevState: ResetPasswordState,
+  formData: FormData
+): Promise<ResetPasswordState> {
+  await requireAdmin();
+
+  const newPassword = String(formData.get("newPassword") ?? "");
+  if (newPassword.length < 8) {
+    return { error: "Password must be at least 8 characters." };
+  }
+
+  const passwordHash = await bcrypt.hash(newPassword, 10);
+  await prisma.member.update({ where: { id: memberId }, data: { passwordHash } });
+
   return { success: true };
 }
