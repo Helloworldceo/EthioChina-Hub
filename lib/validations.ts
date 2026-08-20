@@ -51,3 +51,7 @@ export const postSchema = z.object({
   title: z.string().trim().min(3, "Title is too short").max(200),
   body: z.string().trim().min(20, "Tell a bit more of the story").max(10000),
 });
+
+export const commentSchema = z.object({
+  body: z.string().trim().min(2, "Comment is too short").max(2000),
+});
