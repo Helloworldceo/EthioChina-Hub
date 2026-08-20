@@ -49,6 +49,7 @@ model Member {
   verifiedBy     String?
   verifiedByAdmin Admin?  @relation("VerifiedMembers", fields: [verifiedBy], references: [id])
   supportRequests SupportRequest[]
+  posts          Post[]
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
@@ -102,6 +103,19 @@ model SupportRequest {
   @@index([status])
   @@index([category])
   @@index([memberId])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  authorId  String
+  author    Member   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorId])
+  @@index([createdAt])
 }
 
 model InternalNote {

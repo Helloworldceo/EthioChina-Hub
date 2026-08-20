@@ -15,6 +15,9 @@ export async function NavBar() {
           <Link href="/resources" className="hover:text-emerald-700">
             Resources
           </Link>
+          <Link href="/experiences" className="hover:text-emerald-700">
+            Experiences
+          </Link>
           {!user && (
             <>
               <Link href="/login" className="hover:text-emerald-700">
@@ -35,6 +38,9 @@ export async function NavBar() {
               </Link>
               <Link href="/dashboard/requests" className="hover:text-emerald-700">
                 My Requests
+              </Link>
+              <Link href="/dashboard/experiences" className="hover:text-emerald-700">
+                Share Experience
               </Link>
               <form
                 action={async () => {
