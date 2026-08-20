@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { DeletePostButton } from "../DeletePostButton";
 import { CommentForm } from "./CommentForm";
 import { DeleteCommentButton } from "./DeleteCommentButton";
+import { LikeButton } from "./LikeButton";
 
 export default async function ExperienceDetailPage(props: PageProps<"/experiences/[id]">) {
   const { id } = await props.params;
@@ -13,7 +14,7 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
       where: { id },
       include: {
         author: true,
-        comments: { include: { author: true }, orderBy: { createdAt: "asc" } },
+        comments: { include: { author: true, likes: true }, orderBy: { createdAt: "asc" } },
       },
     }),
     auth(),
@@ -57,6 +58,7 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
             const canDeleteComment =
               (session?.user.role === "member" && session.user.id === c.authorId) ||
               session?.user.role === "admin";
+            const liked = session?.user.role === "member" && c.likes.some((l) => l.memberId === session.user.id);
             return (
               <div key={c.id} className="bg-slate-50 rounded-lg p-4">
                 <p className="text-sm text-slate-700 mb-2">{c.body}</p>
@@ -64,7 +66,23 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
                   <p className="text-xs text-slate-400">
                     {c.author.name} · {c.createdAt.toLocaleDateString()}
                   </p>
-                  {canDeleteComment && <DeleteCommentButton commentId={c.id} />}
+                  <div className="flex items-center gap-3">
+                    {commenter?.verified ? (
+                      <LikeButton
+                        commentId={c.id}
+                        postId={post.id}
+                        initialLiked={liked ?? false}
+                        initialCount={c.likes.length}
+                      />
+                    ) : (
+                      c.likes.length > 0 && (
+                        <span className="text-xs text-slate-400">
+                          ♥ {c.likes.length}
+                        </span>
+                      )
+                    )}
+                    {canDeleteComment && <DeleteCommentButton commentId={c.id} />}
+                  </div>
                 </div>
               </div>
             );

@@ -35,6 +35,30 @@ export async function createComment(postId: string, _prevState: CommentState, fo
   return {};
 }
 
+export async function toggleCommentLike(commentId: string, postId: string) {
+  const session = await auth();
+  if (!session?.user || session.user.role !== "member") {
+    throw new Error("Unauthorized");
+  }
+
+  const member = await prisma.member.findUniqueOrThrow({ where: { id: session.user.id } });
+  if (!member.verified) {
+    throw new Error("Only verified members can like comments.");
+  }
+
+  const existing = await prisma.commentLike.findUnique({
+    where: { commentId_memberId: { commentId, memberId: session.user.id } },
+  });
+
+  if (existing) {
+    await prisma.commentLike.delete({ where: { id: existing.id } });
+  } else {
+    await prisma.commentLike.create({ data: { commentId, memberId: session.user.id } });
+  }
+
+  revalidatePath(`/experiences/${postId}`);
+}
+
 export async function deleteComment(commentId: string) {
   const session = await auth();
   if (!session?.user) throw new Error("Unauthorized");
