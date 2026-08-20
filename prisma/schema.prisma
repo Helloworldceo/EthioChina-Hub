@@ -37,6 +37,9 @@ enum RequestStatus {
 model Member {
   id             String   @id @default(cuid())
   name           String
+  title          String?
+  bio            String?
+  photoUrl       String?
   email          String   @unique
   passwordHash   String?
   phone          String?

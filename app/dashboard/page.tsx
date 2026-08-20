@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { ProfileForm } from "./ProfileForm";
+import { PhotoUpload } from "./PhotoUpload";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -10,16 +12,22 @@ export default async function DashboardPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">My Profile</h1>
-        {member.verified ? (
-          <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">
-            ✓ Verified
-          </span>
-        ) : (
-          <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full">
-            Pending verification
-          </span>
-        )}
+        <div className="flex items-center gap-3">
+          {member.verified ? (
+            <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">
+              ✓ Verified
+            </span>
+          ) : (
+            <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full">
+              Pending verification
+            </span>
+          )}
+          <Link href={`/members/${member.id}`} className="text-sm text-emerald-700 hover:underline">
+            View public profile →
+          </Link>
+        </div>
       </div>
+      <PhotoUpload name={member.name} photoUrl={member.photoUrl} />
       <ProfileForm member={member} />
     </div>
   );

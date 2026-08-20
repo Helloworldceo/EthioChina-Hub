@@ -13,6 +13,8 @@ export const registerSchema = z.object({
 
 export const profileUpdateSchema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(100),
+  title: z.string().trim().max(150).optional().or(z.literal("")),
+  bio: z.string().trim().max(1000).optional().or(z.literal("")),
   phone: z.string().trim().max(30).optional().or(z.literal("")),
   university: z.string().trim().max(150).optional().or(z.literal("")),
   city: z.string().trim().max(100).optional().or(z.literal("")),
@@ -20,6 +22,9 @@ export const profileUpdateSchema = z.object({
   wechat: z.string().trim().max(100).optional().or(z.literal("")),
   studentIdOrDoc: z.string().trim().max(300).optional().or(z.literal("")),
 });
+
+export const MAX_PHOTO_BYTES = 4 * 1024 * 1024;
+export const ALLOWED_PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export const resourceCategories = ["ANNOUNCEMENT", "EVENT", "GUIDE", "FAQ"] as const;
 

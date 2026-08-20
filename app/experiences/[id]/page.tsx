@@ -6,6 +6,7 @@ import { DeletePostButton } from "../DeletePostButton";
 import { CommentForm } from "./CommentForm";
 import { DeleteCommentButton } from "./DeleteCommentButton";
 import { LikeButton } from "./LikeButton";
+import { Avatar } from "@/app/components/Avatar";
 
 export default async function ExperienceDetailPage(props: PageProps<"/experiences/[id]">) {
   const { id } = await props.params;
@@ -38,12 +39,19 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
       </Link>
       <h1 className="text-3xl font-bold text-slate-900 mb-3">{post.title}</h1>
       <div className="flex items-center justify-between mb-8">
-        <p className="text-xs text-slate-400">
-          {post.author.name}
-          {post.author.university && ` · ${post.author.university}`}
-          {" · "}
-          {post.createdAt.toLocaleDateString()}
-        </p>
+        <div className="flex items-center gap-2">
+          <Link href={`/members/${post.author.id}`}>
+            <Avatar name={post.author.name} photoUrl={post.author.photoUrl} size={28} />
+          </Link>
+          <p className="text-xs text-slate-400">
+            <Link href={`/members/${post.author.id}`} className="hover:text-emerald-700 hover:underline">
+              {post.author.name}
+            </Link>
+            {post.author.university && ` · ${post.author.university}`}
+            {" · "}
+            {post.createdAt.toLocaleDateString()}
+          </p>
+        </div>
         {canDeletePost && <DeletePostButton postId={post.id} redirectTo="/experiences" />}
       </div>
       <div className="whitespace-pre-wrap text-slate-700 leading-relaxed mb-10">{post.body}</div>
@@ -63,9 +71,17 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
               <div key={c.id} className="bg-slate-50 rounded-lg p-4">
                 <p className="text-sm text-slate-700 mb-2">{c.body}</p>
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-slate-400">
-                    {c.author.name} · {c.createdAt.toLocaleDateString()}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <Link href={`/members/${c.author.id}`}>
+                      <Avatar name={c.author.name} photoUrl={c.author.photoUrl} size={20} />
+                    </Link>
+                    <p className="text-xs text-slate-400">
+                      <Link href={`/members/${c.author.id}`} className="hover:text-emerald-700 hover:underline">
+                        {c.author.name}
+                      </Link>{" "}
+                      · {c.createdAt.toLocaleDateString()}
+                    </p>
+                  </div>
                   <div className="flex items-center gap-3">
                     {commenter?.verified ? (
                       <LikeButton

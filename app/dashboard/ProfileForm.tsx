@@ -21,6 +21,27 @@ export function ProfileForm({ member }: { member: Member }) {
       )}
 
       <Field label="Full name" name="name" defaultValue={member.name} required error={state.fieldErrors?.name} />
+      <Field
+        label="Title"
+        name="title"
+        defaultValue={member.title ?? ""}
+        hint="e.g. Computer Science Student at Tsinghua University"
+        error={state.fieldErrors?.title}
+      />
+      <div>
+        <label htmlFor="bio" className="block text-sm font-medium text-slate-700 mb-1">
+          Bio
+        </label>
+        <textarea
+          id="bio"
+          name="bio"
+          rows={4}
+          defaultValue={member.bio ?? ""}
+          placeholder="A short bio others will see on your public profile."
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+        />
+        {state.fieldErrors?.bio && <p className="text-xs text-red-600 mt-1">{state.fieldErrors.bio[0]}</p>}
+      </div>
       <Field label="Phone" name="phone" defaultValue={member.phone ?? ""} error={state.fieldErrors?.phone} />
       <Field
         label="University"

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { Avatar } from "@/app/components/Avatar";
 
 export default async function ExperiencesPage() {
   const posts = await prisma.post.findMany({
-    include: { author: { select: { name: true, university: true, city: true } } },
+    include: { author: { select: { id: true, name: true, photoUrl: true, university: true, city: true } } },
     orderBy: { createdAt: "desc" },
   });
 
@@ -24,21 +25,29 @@ export default async function ExperiencesPage() {
 
       <div className="space-y-4">
         {posts.map((p) => (
-          <Link
+          <div
             key={p.id}
-            href={`/experiences/${p.id}`}
-            className="block bg-white rounded-2xl border border-slate-200 p-6 hover:border-emerald-300 transition-colors"
+            className="bg-white rounded-2xl border border-slate-200 p-6 hover:border-emerald-300 transition-colors"
           >
-            <h2 className="text-lg font-semibold text-slate-900 mb-1">{p.title}</h2>
-            <p className="text-slate-600 text-sm line-clamp-2 mb-3">{p.body}</p>
-            <p className="text-xs text-slate-400">
-              {p.author.name}
-              {p.author.university && ` · ${p.author.university}`}
-              {p.author.city && ` · ${p.author.city}`}
-              {" · "}
-              {p.createdAt.toLocaleDateString()}
-            </p>
-          </Link>
+            <Link href={`/experiences/${p.id}`} className="block mb-3">
+              <h2 className="text-lg font-semibold text-slate-900 mb-1">{p.title}</h2>
+              <p className="text-slate-600 text-sm line-clamp-2">{p.body}</p>
+            </Link>
+            <div className="flex items-center gap-2">
+              <Link href={`/members/${p.author.id}`}>
+                <Avatar name={p.author.name} photoUrl={p.author.photoUrl} size={24} />
+              </Link>
+              <p className="text-xs text-slate-400">
+                <Link href={`/members/${p.author.id}`} className="hover:text-emerald-700 hover:underline">
+                  {p.author.name}
+                </Link>
+                {p.author.university && ` · ${p.author.university}`}
+                {p.author.city && ` · ${p.author.city}`}
+                {" · "}
+                {p.createdAt.toLocaleDateString()}
+              </p>
+            </div>
+          </div>
         ))}
         {posts.length === 0 && (
           <p className="text-center text-slate-400 py-16">

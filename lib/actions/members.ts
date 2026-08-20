@@ -1,9 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { put } from "@vercel/blob";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { profileUpdateSchema } from "@/lib/validations";
+import { profileUpdateSchema, MAX_PHOTO_BYTES, ALLOWED_PHOTO_TYPES } from "@/lib/validations";
 
 export type ProfileState = {
   error?: string;
@@ -23,12 +24,14 @@ export async function updateOwnProfile(_prevState: ProfileState, formData: FormD
     return { fieldErrors: parsed.error.flatten().fieldErrors };
   }
 
-  const { name, phone, university, city, program, wechat, studentIdOrDoc } = parsed.data;
+  const { name, title, bio, phone, university, city, program, wechat, studentIdOrDoc } = parsed.data;
 
   await prisma.member.update({
     where: { id: session.user.id },
     data: {
       name,
+      title: title || null,
+      bio: bio || null,
       phone: phone || null,
       university: university || null,
       city: city || null,
@@ -39,6 +42,42 @@ export async function updateOwnProfile(_prevState: ProfileState, formData: FormD
   });
 
   revalidatePath("/dashboard");
+  revalidatePath(`/members/${session.user.id}`);
+  return { success: true };
+}
+
+export type PhotoState = { error?: string; success?: boolean };
+
+export async function updateProfilePhoto(_prevState: PhotoState, formData: FormData): Promise<PhotoState> {
+  const session = await auth();
+  if (!session?.user || session.user.role !== "member") {
+    return { error: "You must be logged in as a member to do this." };
+  }
+
+  const file = formData.get("photo");
+  if (!(file instanceof File) || file.size === 0) {
+    return { error: "Choose an image to upload." };
+  }
+  if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
+    return { error: "Please upload a JPEG, PNG, or WebP image." };
+  }
+  if (file.size > MAX_PHOTO_BYTES) {
+    return { error: "Image is too large — max 4MB." };
+  }
+
+  const extension = file.type.split("/")[1];
+  const blob = await put(`profile-photos/${session.user.id}-${Date.now()}.${extension}`, file, {
+    access: "public",
+    addRandomSuffix: false,
+  });
+
+  await prisma.member.update({
+    where: { id: session.user.id },
+    data: { photoUrl: blob.url },
+  });
+
+  revalidatePath("/dashboard");
+  revalidatePath(`/members/${session.user.id}`);
   return { success: true };
 }
 
@@ -84,12 +123,14 @@ export async function adminUpdateMember(
     return { fieldErrors: parsed.error.flatten().fieldErrors };
   }
 
-  const { name, phone, university, city, program, wechat, studentIdOrDoc } = parsed.data;
+  const { name, title, bio, phone, university, city, program, wechat, studentIdOrDoc } = parsed.data;
 
   await prisma.member.update({
     where: { id: memberId },
     data: {
       name,
+      title: title || null,
+      bio: bio || null,
       phone: phone || null,
       university: university || null,
       city: city || null,
@@ -101,5 +142,6 @@ export async function adminUpdateMember(
 
   revalidatePath("/admin/members");
   revalidatePath(`/admin/members/${memberId}`);
+  revalidatePath(`/members/${memberId}`);
   return { success: true };
 }
