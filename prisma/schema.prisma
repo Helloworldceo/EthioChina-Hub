@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AdminRole {
+  ADMIN
+  SUPERADMIN
+}
+
+enum ResourceCategory {
+  ANNOUNCEMENT
+  EVENT
+  GUIDE
+  FAQ
+}
+
+enum RequestCategory {
+  VISA
+  HOUSING
+  ACADEMIC
+  FINANCIAL
+  EMERGENCY
+  OTHER
+}
+
+enum RequestStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+}
+
+model Member {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  passwordHash   String?
+  phone          String?
+  university     String?
+  city           String?
+  program        String?
+  studentIdOrDoc String?
+  wechat         String?
+  verified       Boolean  @default(false)
+  verifiedBy     String?
+  verifiedByAdmin Admin?  @relation("VerifiedMembers", fields: [verifiedBy], references: [id])
+  supportRequests SupportRequest[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([verified])
+  @@index([university])
+}
+
+model Admin {
+  id                String           @id @default(cuid())
+  name              String
+  email             String           @unique
+  passwordHash      String
+  role              AdminRole        @default(ADMIN)
+  createdAt         DateTime         @default(now())
+  resources         Resource[]
+  verifiedMembers   Member[]         @relation("VerifiedMembers")
+  assignedRequests  SupportRequest[] @relation("AssignedRequests")
+  internalNotes     InternalNote[]
+}
+
+model Resource {
+  id          String            @id @default(cuid())
+  title       String
+  body        String
+  category    ResourceCategory
+  authorId    String
+  author      Admin             @relation(fields: [authorId], references: [id])
+  publishedAt DateTime?
+  pinned      Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([category])
+  @@index([pinned])
+}
+
+model SupportRequest {
+  id            String           @id @default(cuid())
+  memberId      String
+  member        Member           @relation(fields: [memberId], references: [id])
+  category      RequestCategory
+  description   String
+  status        RequestStatus    @default(OPEN)
+  assignedTo    String?
+  assignedAdmin Admin?           @relation("AssignedRequests", fields: [assignedTo], references: [id])
+  internalNotes InternalNote[]
+  createdAt     DateTime         @default(now())
+  resolvedAt    DateTime?
+  updatedAt     DateTime         @updatedAt
+
+  @@index([status])
+  @@index([category])
+  @@index([memberId])
+}
+
+model InternalNote {
+  id        String         @id @default(cuid())
+  requestId String
+  request   SupportRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    Admin          @relation(fields: [authorId], references: [id])
+  body      String
+  createdAt DateTime       @default(now())
+}
