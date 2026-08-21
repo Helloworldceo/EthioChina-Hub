@@ -31,7 +31,7 @@ export default async function AdminMembersPage(props: PageProps<"/admin/members"
         <h1 className="text-2xl font-bold">Members ({members.length})</h1>
         <a
           href="/api/admin/members/export"
-          className="bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold px-4 py-2 rounded-lg"
+          className="bg-slate-800 hover:bg-slate-900 dark:bg-stone-700 dark:hover:bg-stone-600 text-white text-sm font-semibold px-4 py-2 rounded-lg"
         >
           Export CSV
         </a>
@@ -43,26 +43,26 @@ export default async function AdminMembersPage(props: PageProps<"/admin/members"
           name="q"
           defaultValue={q}
           placeholder="Search name, email, university, city..."
-          className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          className="flex-1 rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
         />
         <select
           name="verified"
           defaultValue={verifiedFilter}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+          className="rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm"
         >
           <option value="">All</option>
           <option value="true">Verified</option>
           <option value="false">Unverified</option>
         </select>
-        <button type="submit" className="bg-slate-200 hover:bg-slate-300 text-sm font-semibold px-4 py-2 rounded-lg">
+        <button type="submit" className="bg-slate-200 dark:bg-stone-700 hover:bg-slate-300 dark:hover:bg-stone-600 text-sm font-semibold px-4 py-2 rounded-lg">
           Filter
         </button>
       </form>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-slate-200 dark:border-stone-800 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-slate-500 border-b border-slate-200">
+            <tr className="text-left text-slate-500 dark:text-stone-400 border-b border-slate-200 dark:border-stone-800">
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Email</th>
               <th className="px-4 py-3">University</th>
@@ -73,18 +73,18 @@ export default async function AdminMembersPage(props: PageProps<"/admin/members"
           </thead>
           <tbody>
             {members.map((m) => (
-              <tr key={m.id} className="border-b border-slate-100 last:border-0">
+              <tr key={m.id} className="border-b border-slate-100 dark:border-stone-800 last:border-0">
                 <td className="px-4 py-3 font-medium">{m.name}</td>
-                <td className="px-4 py-3 text-slate-600">{m.email}</td>
-                <td className="px-4 py-3 text-slate-600">{m.university ?? "—"}</td>
-                <td className="px-4 py-3 text-slate-600">{m.city ?? "—"}</td>
+                <td className="px-4 py-3 text-slate-600 dark:text-stone-400">{m.email}</td>
+                <td className="px-4 py-3 text-slate-600 dark:text-stone-400">{m.university ?? "—"}</td>
+                <td className="px-4 py-3 text-slate-600 dark:text-stone-400">{m.city ?? "—"}</td>
                 <td className="px-4 py-3">
                   {m.verified ? (
-                    <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                    <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-full">
                       Verified
                     </span>
                   ) : (
-                    <span className="bg-amber-100 text-amber-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                    <span className="bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-xs font-semibold px-2.5 py-1 rounded-full">
                       Pending
                     </span>
                   )}
@@ -96,7 +96,7 @@ export default async function AdminMembersPage(props: PageProps<"/admin/members"
             ))}
             {members.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-slate-400">
+                <td colSpan={6} className="px-4 py-10 text-center text-slate-400 dark:text-stone-500">
                   No members match this search.
                 </td>
               </tr>
@@ -105,7 +105,7 @@ export default async function AdminMembersPage(props: PageProps<"/admin/members"
         </table>
       </div>
 
-      <p className="text-sm text-slate-400 mt-4">
+      <p className="text-sm text-slate-400 dark:text-stone-500 mt-4">
         <Link href="/admin" className="hover:underline">
           ← Back to overview
         </Link>

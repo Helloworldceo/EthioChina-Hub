@@ -10,7 +10,7 @@ export function DeleteCommentButton({ commentId }: { commentId: string }) {
     <button
       disabled={pending}
       onClick={() => startTransition(() => deleteComment(commentId))}
-      className="text-red-600 hover:underline text-xs disabled:opacity-60"
+      className="text-red-600 dark:text-red-400 hover:underline text-xs disabled:opacity-60"
     >
       {pending ? "Deleting..." : "Delete"}
     </button>

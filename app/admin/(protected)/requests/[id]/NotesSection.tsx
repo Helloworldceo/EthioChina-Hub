@@ -18,17 +18,17 @@ export function NotesSection({ requestId, notes }: { requestId: string; notes: N
 
   return (
     <div>
-      <h2 className="font-semibold text-slate-900 mb-3">Internal notes</h2>
+      <h2 className="font-semibold text-slate-900 dark:text-stone-100 mb-3">Internal notes</h2>
       <div className="space-y-3 mb-4">
         {notes.map((n) => (
-          <div key={n.id} className="bg-slate-50 rounded-lg p-4 text-sm">
-            <p className="text-slate-700">{n.body}</p>
-            <p className="text-xs text-slate-400 mt-2">
+          <div key={n.id} className="bg-slate-50 dark:bg-stone-800 rounded-lg p-4 text-sm">
+            <p className="text-slate-700 dark:text-stone-300">{n.body}</p>
+            <p className="text-xs text-slate-400 dark:text-stone-500 mt-2">
               {n.author.name} · {n.createdAt.toLocaleString()}
             </p>
           </div>
         ))}
-        {notes.length === 0 && <p className="text-sm text-slate-400">No internal notes yet.</p>}
+        {notes.length === 0 && <p className="text-sm text-slate-400 dark:text-stone-500">No internal notes yet.</p>}
       </div>
 
       <form action={formAction} className="flex items-start gap-2">
@@ -37,17 +37,17 @@ export function NotesSection({ requestId, notes }: { requestId: string; notes: N
           rows={2}
           required
           placeholder="Add an internal note (not visible to the member)..."
-          className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          className="flex-1 rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
         />
         <button
           type="submit"
           disabled={pending}
-          className="bg-slate-800 hover:bg-slate-900 disabled:opacity-60 text-white text-sm font-semibold px-4 py-2 rounded-lg"
+          className="bg-slate-800 hover:bg-slate-900 dark:bg-stone-700 dark:hover:bg-stone-600 disabled:opacity-60 text-white text-sm font-semibold px-4 py-2 rounded-lg"
         >
           {pending ? "Adding..." : "Add"}
         </button>
       </form>
-      {state.error && <p className="text-xs text-red-600 mt-2">{state.error}</p>}
+      {state.error && <p className="text-xs text-red-600 dark:text-red-400 mt-2">{state.error}</p>}
     </div>
   );
 }

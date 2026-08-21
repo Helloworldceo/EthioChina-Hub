@@ -12,11 +12,11 @@ export function ResourceRowActions({ id, pinned }: { id: string; pinned: boolean
       <button
         disabled={pending}
         onClick={() => startTransition(() => togglePinned(id, !pinned))}
-        className={pinned ? "text-amber-600 hover:underline" : "text-slate-600 hover:underline"}
+        className={pinned ? "text-amber-600 dark:text-amber-400 hover:underline" : "text-slate-600 dark:text-stone-400 hover:underline"}
       >
         {pinned ? "Unpin" : "Pin"}
       </button>
-      <Link href={`/admin/resources/${id}/edit`} className="text-slate-600 hover:underline">
+      <Link href={`/admin/resources/${id}/edit`} className="text-slate-600 dark:text-stone-400 hover:underline">
         Edit
       </Link>
       <button
@@ -26,7 +26,7 @@ export function ResourceRowActions({ id, pinned }: { id: string; pinned: boolean
             startTransition(() => deleteResource(id));
           }
         }}
-        className="text-red-600 hover:underline"
+        className="text-red-600 dark:text-red-400 hover:underline"
       >
         Delete
       </button>

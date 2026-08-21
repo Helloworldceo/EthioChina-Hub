@@ -29,16 +29,16 @@ export default function HomePage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
       <div className="text-center max-w-2xl mx-auto">
-        <span className="inline-flex items-center gap-1.5 bg-brand/10 text-brand-dark text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full mb-6">
+        <span className="inline-flex items-center gap-1.5 bg-brand/10 text-brand-dark dark:text-brand text-xs font-semibold tracking-wide uppercase px-3 py-1.5 rounded-full mb-6">
           A community, wherever you are
         </span>
-        <h1 className="text-4xl sm:text-5xl font-bold text-stone-900 mb-5 tracking-tight leading-[1.1]">
+        <h1 className="text-4xl sm:text-5xl font-bold text-stone-900 dark:text-stone-100 mb-5 tracking-tight leading-[1.1]">
           A home base for{" "}
           <span className="bg-gradient-to-r from-brand to-gold bg-clip-text text-transparent">
             Ethiopians in China
           </span>
         </h1>
-        <p className="text-stone-600 text-lg mb-9 leading-relaxed">
+        <p className="text-stone-600 dark:text-stone-400 text-lg mb-9 leading-relaxed">
           Connect with the community, find verified resources on visas, housing, and academics,
           and get support when you need it.
         </p>
@@ -51,7 +51,7 @@ export default function HomePage() {
           </Link>
           <Link
             href="/resources"
-            className="bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 font-semibold px-7 py-3.5 rounded-xl transition-colors"
+            className="bg-white dark:bg-stone-900 hover:bg-stone-50 dark:hover:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 font-semibold px-7 py-3.5 rounded-xl transition-colors"
           >
             Browse resources
           </Link>
@@ -62,15 +62,15 @@ export default function HomePage() {
         {features.map((f) => (
           <div
             key={f.title}
-            className="bg-white rounded-2xl border border-stone-200 p-6 hover:border-brand/30 hover:shadow-sm transition-all"
+            className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 hover:border-brand/30 hover:shadow-sm transition-all"
           >
             <div className="w-10 h-10 rounded-lg bg-brand/10 flex items-center justify-center mb-4">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-brand-dark">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-brand-dark dark:text-brand">
                 {f.icon}
               </svg>
             </div>
-            <h2 className="font-semibold text-stone-900 mb-2">{f.title}</h2>
-            <p className="text-stone-500 text-sm leading-relaxed">{f.body}</p>
+            <h2 className="font-semibold text-stone-900 dark:text-stone-100 mb-2">{f.title}</h2>
+            <p className="text-stone-500 dark:text-stone-400 text-sm leading-relaxed">{f.body}</p>
           </div>
         ))}
       </div>

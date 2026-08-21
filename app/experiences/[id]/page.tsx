@@ -34,17 +34,17 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <Link href="/experiences" className="text-sm text-slate-400 hover:underline mb-6 inline-block">
+      <Link href="/experiences" className="text-sm text-slate-400 dark:text-stone-500 hover:underline mb-6 inline-block">
         ← All experiences
       </Link>
-      <h1 className="text-3xl font-bold text-slate-900 mb-3">{post.title}</h1>
+      <h1 className="text-3xl font-bold text-slate-900 dark:text-stone-100 mb-3">{post.title}</h1>
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-2">
           <Link href={`/members/${post.author.id}`}>
             <Avatar name={post.author.name} photoUrl={post.author.photoUrl} size={28} />
           </Link>
-          <p className="text-xs text-slate-400">
-            <Link href={`/members/${post.author.id}`} className="hover:text-emerald-700 hover:underline">
+          <p className="text-xs text-slate-400 dark:text-stone-500">
+            <Link href={`/members/${post.author.id}`} className="hover:text-emerald-700 dark:hover:text-emerald-400 hover:underline">
               {post.author.name}
             </Link>
             {post.author.university && ` · ${post.author.university}`}
@@ -54,10 +54,10 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
         </div>
         {canDeletePost && <DeletePostButton postId={post.id} redirectTo="/experiences" />}
       </div>
-      <div className="whitespace-pre-wrap text-slate-700 leading-relaxed mb-10">{post.body}</div>
+      <div className="whitespace-pre-wrap text-slate-700 dark:text-stone-300 leading-relaxed mb-10">{post.body}</div>
 
-      <div className="border-t border-slate-200 pt-8">
-        <h2 className="font-semibold text-slate-900 mb-4">
+      <div className="border-t border-slate-200 dark:border-stone-800 pt-8">
+        <h2 className="font-semibold text-slate-900 dark:text-stone-100 mb-4">
           Comments {post.comments.length > 0 && `(${post.comments.length})`}
         </h2>
 
@@ -68,15 +68,15 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
               session?.user.role === "admin";
             const liked = session?.user.role === "member" && c.likes.some((l) => l.memberId === session.user.id);
             return (
-              <div key={c.id} className="bg-slate-50 rounded-lg p-4">
-                <p className="text-sm text-slate-700 mb-2">{c.body}</p>
+              <div key={c.id} className="bg-slate-50 dark:bg-stone-800 rounded-lg p-4">
+                <p className="text-sm text-slate-700 dark:text-stone-300 mb-2">{c.body}</p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Link href={`/members/${c.author.id}`}>
                       <Avatar name={c.author.name} photoUrl={c.author.photoUrl} size={20} />
                     </Link>
-                    <p className="text-xs text-slate-400">
-                      <Link href={`/members/${c.author.id}`} className="hover:text-emerald-700 hover:underline">
+                    <p className="text-xs text-slate-400 dark:text-stone-500">
+                      <Link href={`/members/${c.author.id}`} className="hover:text-emerald-700 dark:hover:text-emerald-400 hover:underline">
                         {c.author.name}
                       </Link>{" "}
                       · {c.createdAt.toLocaleDateString()}
@@ -92,7 +92,7 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
                       />
                     ) : (
                       c.likes.length > 0 && (
-                        <span className="text-xs text-slate-400">
+                        <span className="text-xs text-slate-400 dark:text-stone-500">
                           ♥ {c.likes.length}
                         </span>
                       )
@@ -104,19 +104,19 @@ export default async function ExperienceDetailPage(props: PageProps<"/experience
             );
           })}
           {post.comments.length === 0 && (
-            <p className="text-sm text-slate-400">No comments yet.</p>
+            <p className="text-sm text-slate-400 dark:text-stone-500">No comments yet.</p>
           )}
         </div>
 
         {commenter?.verified ? (
           <CommentForm postId={post.id} />
         ) : commenter ? (
-          <p className="text-sm text-amber-600">
+          <p className="text-sm text-amber-600 dark:text-amber-400">
             Only verified members can comment. An admin needs to verify your profile first.
           </p>
         ) : (
-          <p className="text-sm text-slate-400">
-            <Link href="/login" className="text-emerald-700 hover:underline">
+          <p className="text-sm text-slate-400 dark:text-stone-500">
+            <Link href="/login" className="text-emerald-700 dark:text-emerald-400 hover:underline">
               Log in
             </Link>{" "}
             as a verified member to comment.

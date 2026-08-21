@@ -23,7 +23,7 @@ export function Avatar({
         src={photoUrl}
         alt={name}
         style={style}
-        className="rounded-full object-cover border border-stone-200 shrink-0"
+        className="rounded-full object-cover border border-stone-200 dark:border-stone-800 shrink-0"
       />
     );
   }

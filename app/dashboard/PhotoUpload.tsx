@@ -11,11 +11,11 @@ export function PhotoUpload({ name, photoUrl }: { name: string; photoUrl: string
   const [preview, setPreview] = useState<string | null>(null);
 
   return (
-    <form action={formAction} className="bg-white rounded-2xl border border-slate-200 p-8 mb-6 flex items-center gap-6">
+    <form action={formAction} className="bg-white dark:bg-stone-900 rounded-2xl border border-slate-200 dark:border-stone-800 p-8 mb-6 flex items-center gap-6">
       <Avatar name={name} photoUrl={preview ?? photoUrl} size={72} />
       <div className="flex-1">
-        {state.success && <p className="text-emerald-700 text-sm mb-2">Photo updated.</p>}
-        {state.error && <p className="text-red-600 text-sm mb-2">{state.error}</p>}
+        {state.success && <p className="text-emerald-700 dark:text-emerald-400 text-sm mb-2">Photo updated.</p>}
+        {state.error && <p className="text-red-600 dark:text-red-400 text-sm mb-2">{state.error}</p>}
         <input
           type="file"
           name="photo"
@@ -24,7 +24,7 @@ export function PhotoUpload({ name, photoUrl }: { name: string; photoUrl: string
             const file = e.target.files?.[0];
             setPreview(file ? URL.createObjectURL(file) : null);
           }}
-          className="text-sm text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-emerald-50 file:text-emerald-700 file:font-semibold hover:file:bg-emerald-100"
+          className="text-sm text-slate-600 dark:text-stone-400 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-emerald-50 dark:file:bg-emerald-900/30 file:text-emerald-700 dark:file:text-emerald-400 file:font-semibold hover:file:bg-emerald-100 dark:hover:file:bg-emerald-900/50"
         />
         <button
           type="submit"

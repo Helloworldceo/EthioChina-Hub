@@ -39,9 +39,9 @@ export default async function ResourcesPage(props: PageProps<"/resources">) {
           name="q"
           defaultValue={q}
           placeholder="Search resources..."
-          className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          className="flex-1 rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
         />
-        <select name="category" defaultValue={category} className="rounded-lg border border-slate-300 px-3 py-2 text-sm">
+        <select name="category" defaultValue={category} className="rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm">
           <option value="">All categories</option>
           {resourceCategories.map((c) => (
             <option key={c} value={c}>
@@ -49,7 +49,7 @@ export default async function ResourcesPage(props: PageProps<"/resources">) {
             </option>
           ))}
         </select>
-        <button type="submit" className="bg-slate-200 hover:bg-slate-300 text-sm font-semibold px-4 py-2 rounded-lg">
+        <button type="submit" className="bg-slate-200 dark:bg-stone-700 hover:bg-slate-300 dark:hover:bg-stone-600 text-sm font-semibold px-4 py-2 rounded-lg">
           Filter
         </button>
       </form>
@@ -59,20 +59,20 @@ export default async function ResourcesPage(props: PageProps<"/resources">) {
           <Link
             key={r.id}
             href={`/resources/${r.id}`}
-            className="block bg-white rounded-2xl border border-slate-200 p-6 hover:border-emerald-300 transition-colors"
+            className="block bg-white dark:bg-stone-900 rounded-2xl border border-slate-200 dark:border-stone-800 p-6 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors"
           >
             <div className="flex items-center gap-2 mb-2">
               {r.pinned && <span title="Pinned">📌</span>}
-              <span className="text-xs font-semibold text-emerald-700 uppercase tracking-wide">
+              <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide">
                 {categoryLabels[r.category]}
               </span>
             </div>
-            <h2 className="text-lg font-semibold text-slate-900 mb-1">{r.title}</h2>
-            <p className="text-slate-600 text-sm line-clamp-2">{r.body}</p>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-stone-100 mb-1">{r.title}</h2>
+            <p className="text-slate-600 dark:text-stone-400 text-sm line-clamp-2">{r.body}</p>
           </Link>
         ))}
         {resources.length === 0 && (
-          <p className="text-center text-slate-400 py-16">No resources match this search yet.</p>
+          <p className="text-center text-slate-400 dark:text-stone-500 py-16">No resources match this search yet.</p>
         )}
       </div>
     </div>

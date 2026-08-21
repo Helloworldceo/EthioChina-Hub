@@ -26,13 +26,13 @@ export function ResourceForm({
   const [state, formAction, pending] = useActionState(action, initialState);
 
   return (
-    <form action={formAction} className="bg-white rounded-2xl border border-slate-200 p-8 space-y-4">
+    <form action={formAction} className="bg-white dark:bg-stone-900 rounded-2xl border border-slate-200 dark:border-stone-800 p-8 space-y-4">
       {state.error && (
-        <p className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{state.error}</p>
+        <p className="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-sm rounded-lg px-4 py-3">{state.error}</p>
       )}
 
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">
+        <label htmlFor="title" className="block text-sm font-medium text-slate-700 dark:text-stone-300 mb-1">
           Title
         </label>
         <input
@@ -40,22 +40,22 @@ export function ResourceForm({
           name="title"
           defaultValue={defaults?.title}
           required
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          className="w-full rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400"
         />
         {state.fieldErrors?.title && (
-          <p className="text-xs text-red-600 mt-1">{state.fieldErrors.title[0]}</p>
+          <p className="text-xs text-red-600 dark:text-red-400 mt-1">{state.fieldErrors.title[0]}</p>
         )}
       </div>
 
       <div>
-        <label htmlFor="category" className="block text-sm font-medium text-slate-700 mb-1">
+        <label htmlFor="category" className="block text-sm font-medium text-slate-700 dark:text-stone-300 mb-1">
           Category
         </label>
         <select
           id="category"
           name="category"
           defaultValue={defaults?.category ?? "ANNOUNCEMENT"}
-          className="w-full rounded-lg border border-slate-300 px-3 py-2"
+          className="w-full rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2"
         >
           {resourceCategories.map((c) => (
             <option key={c} value={c}>
@@ -66,7 +66,7 @@ export function ResourceForm({
       </div>
 
       <div>
-        <label htmlFor="body" className="block text-sm font-medium text-slate-700 mb-1">
+        <label htmlFor="body" className="block text-sm font-medium text-slate-700 dark:text-stone-300 mb-1">
           Body
         </label>
         <textarea
@@ -75,19 +75,19 @@ export function ResourceForm({
           defaultValue={defaults?.body}
           required
           rows={10}
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          className="w-full rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-400"
         />
         {state.fieldErrors?.body && (
-          <p className="text-xs text-red-600 mt-1">{state.fieldErrors.body[0]}</p>
+          <p className="text-xs text-red-600 dark:text-red-400 mt-1">{state.fieldErrors.body[0]}</p>
         )}
       </div>
 
       <div className="flex items-center gap-6">
-        <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+        <label className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-stone-300">
           <input type="checkbox" name="pinned" value="true" defaultChecked={defaults?.pinned} />
           Pin to top
         </label>
-        <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+        <label className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-stone-300">
           <input type="checkbox" name="published" value="true" defaultChecked={defaults?.published ?? true} />
           Published (visible to members)
         </label>

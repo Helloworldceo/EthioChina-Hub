@@ -19,7 +19,7 @@ export function RequestControls({
 
   return (
     <div className="flex items-center gap-4">
-      <label className="text-sm font-medium text-slate-700">
+      <label className="text-sm font-medium text-slate-700 dark:text-stone-300">
         Status
         <select
           defaultValue={status}
@@ -29,7 +29,7 @@ export function RequestControls({
               updateRequestStatus(requestId, e.target.value as (typeof requestStatuses)[number])
             )
           }
-          className="ml-2 rounded-lg border border-slate-300 px-2 py-1.5 text-sm"
+          className="ml-2 rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-2 py-1.5 text-sm"
         >
           {requestStatuses.map((s) => (
             <option key={s} value={s}>
@@ -39,13 +39,13 @@ export function RequestControls({
         </select>
       </label>
 
-      <label className="text-sm font-medium text-slate-700">
+      <label className="text-sm font-medium text-slate-700 dark:text-stone-300">
         Assigned to
         <select
           defaultValue={assignedTo ?? ""}
           disabled={pending}
           onChange={(e) => startTransition(() => assignRequest(requestId, e.target.value || null))}
-          className="ml-2 rounded-lg border border-slate-300 px-2 py-1.5 text-sm"
+          className="ml-2 rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-2 py-1.5 text-sm"
         >
           <option value="">Unassigned</option>
           {admins.map((a) => (

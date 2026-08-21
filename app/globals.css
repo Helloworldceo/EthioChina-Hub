@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #fbfaf7;
@@ -9,6 +10,17 @@
   --brand: #0f7a54;
   --brand-dark: #0b5e40;
   --gold: #d99e2d;
+}
+
+:root.dark {
+  --background: #131110;
+  --background-wash:
+    radial-gradient(ellipse 90% 60% at 15% -10%, rgba(16, 133, 89, 0.14), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 100% 0%, rgba(217, 158, 45, 0.1), transparent 55%);
+  --foreground: #f2f0ed;
+  --brand: #1a9c6c;
+  --brand-dark: #14805a;
+  --gold: #e6b34a;
 }
 
 @theme inline {

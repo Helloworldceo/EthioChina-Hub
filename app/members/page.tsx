@@ -46,7 +46,7 @@ export default async function MembersDirectoryPage(props: PageProps<"/members">)
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-bold mb-2">Member Directory</h1>
-      <p className="text-stone-500 text-sm mb-8">
+      <p className="text-stone-500 dark:text-stone-400 text-sm mb-8">
         Verified members of the community — find others at your university or city.
       </p>
 
@@ -56,9 +56,9 @@ export default async function MembersDirectoryPage(props: PageProps<"/members">)
           name="q"
           defaultValue={q}
           placeholder="Search by name..."
-          className="flex-1 min-w-[180px] rounded-lg border border-stone-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+          className="flex-1 min-w-[180px] rounded-lg border border-stone-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
         />
-        <select name="university" defaultValue={university} className="rounded-lg border border-stone-300 px-3 py-2 text-sm">
+        <select name="university" defaultValue={university} className="rounded-lg border border-stone-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm">
           <option value="">All universities</option>
           {universities.map((u) => (
             <option key={u.university} value={u.university!}>
@@ -66,7 +66,7 @@ export default async function MembersDirectoryPage(props: PageProps<"/members">)
             </option>
           ))}
         </select>
-        <select name="city" defaultValue={city} className="rounded-lg border border-stone-300 px-3 py-2 text-sm">
+        <select name="city" defaultValue={city} className="rounded-lg border border-stone-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm">
           <option value="">All cities</option>
           {cities.map((c) => (
             <option key={c.city} value={c.city!}>
@@ -74,7 +74,7 @@ export default async function MembersDirectoryPage(props: PageProps<"/members">)
             </option>
           ))}
         </select>
-        <button type="submit" className="bg-stone-200 hover:bg-stone-300 text-sm font-semibold px-4 py-2 rounded-lg">
+        <button type="submit" className="bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600 text-sm font-semibold px-4 py-2 rounded-lg">
           Filter
         </button>
       </form>
@@ -84,19 +84,19 @@ export default async function MembersDirectoryPage(props: PageProps<"/members">)
           <Link
             key={m.id}
             href={`/members/${m.id}`}
-            className="flex items-center gap-3 bg-white rounded-xl border border-stone-200 p-4 hover:border-brand/30 transition-colors"
+            className="flex items-center gap-3 bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 hover:border-brand/30 transition-colors"
           >
             <Avatar name={m.name} photoUrl={m.photoUrl} size={44} />
             <div className="min-w-0">
-              <p className="font-semibold text-stone-900 truncate">{m.name}</p>
-              <p className="text-xs text-stone-400 truncate">
+              <p className="font-semibold text-stone-900 dark:text-stone-100 truncate">{m.name}</p>
+              <p className="text-xs text-stone-400 dark:text-stone-500 truncate">
                 {m.title || [m.university, m.city].filter(Boolean).join(" · ") || "Member"}
               </p>
             </div>
           </Link>
         ))}
         {members.length === 0 && (
-          <p className="text-sm text-stone-400 col-span-2 text-center py-16">
+          <p className="text-sm text-stone-400 dark:text-stone-500 col-span-2 text-center py-16">
             No verified members match this search yet.
           </p>
         )}

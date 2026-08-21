@@ -33,46 +33,46 @@ export default async function MemberProfilePage(props: PageProps<"/members/[id]"
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <div className="bg-white rounded-2xl border border-stone-200 p-8 text-center mb-8">
+      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-8 text-center mb-8">
         <div className="flex justify-center mb-4">
           <Avatar name={member.name} photoUrl={member.photoUrl} size={88} />
         </div>
         <div className="flex items-center justify-center gap-2 mb-1">
-          <h1 className="text-2xl font-bold text-stone-900">{member.name}</h1>
+          <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">{member.name}</h1>
           {member.verified && (
             <span title="Verified member" className="text-brand">
               ✓
             </span>
           )}
         </div>
-        {member.title && <p className="text-stone-500 mb-3">{member.title}</p>}
+        {member.title && <p className="text-stone-500 dark:text-stone-400 mb-3">{member.title}</p>}
         {member.bio && (
-          <p className="text-stone-700 max-w-lg mx-auto leading-relaxed mb-4">{member.bio}</p>
+          <p className="text-stone-700 dark:text-stone-300 max-w-lg mx-auto leading-relaxed mb-4">{member.bio}</p>
         )}
-        <div className="flex items-center justify-center gap-3 flex-wrap text-xs text-stone-400">
+        <div className="flex items-center justify-center gap-3 flex-wrap text-xs text-stone-400 dark:text-stone-500">
           {member.university && <span>{member.university}</span>}
           {member.city && <span>· {member.city}</span>}
           {member.program && <span>· {member.program}</span>}
         </div>
-        <p className="text-xs text-stone-300 mt-4">
+        <p className="text-xs text-stone-300 dark:text-stone-600 mt-4">
           Member since {member.createdAt.toLocaleDateString()}
         </p>
       </div>
 
-      <h2 className="font-semibold text-stone-900 mb-4">Experiences shared</h2>
+      <h2 className="font-semibold text-stone-900 dark:text-stone-100 mb-4">Experiences shared</h2>
       <div className="space-y-3">
         {posts.map((p) => (
           <Link
             key={p.id}
             href={`/experiences/${p.id}`}
-            className="block bg-white rounded-xl border border-stone-200 p-5 hover:border-brand/30 transition-colors"
+            className="block bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-5 hover:border-brand/30 transition-colors"
           >
-            <h3 className="font-semibold text-stone-900 mb-1">{p.title}</h3>
-            <p className="text-stone-500 text-sm line-clamp-2">{p.body}</p>
+            <h3 className="font-semibold text-stone-900 dark:text-stone-100 mb-1">{p.title}</h3>
+            <p className="text-stone-500 dark:text-stone-400 text-sm line-clamp-2">{p.body}</p>
           </Link>
         ))}
         {posts.length === 0 && (
-          <p className="text-sm text-stone-400">No experiences shared yet.</p>
+          <p className="text-sm text-stone-400 dark:text-stone-500">No experiences shared yet.</p>
         )}
       </div>
     </div>

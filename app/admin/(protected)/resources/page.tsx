@@ -19,10 +19,10 @@ export default async function AdminResourcesPage() {
         </Link>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-slate-200 dark:border-stone-800 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-slate-500 border-b border-slate-200">
+            <tr className="text-left text-slate-500 dark:text-stone-400 border-b border-slate-200 dark:border-stone-800">
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Category</th>
               <th className="px-4 py-3">Status</th>
@@ -32,16 +32,16 @@ export default async function AdminResourcesPage() {
           </thead>
           <tbody>
             {resources.map((r) => (
-              <tr key={r.id} className="border-b border-slate-100 last:border-0">
+              <tr key={r.id} className="border-b border-slate-100 dark:border-stone-800 last:border-0">
                 <td className="px-4 py-3 font-medium">{r.title}</td>
-                <td className="px-4 py-3 text-slate-600">{r.category}</td>
+                <td className="px-4 py-3 text-slate-600 dark:text-stone-400">{r.category}</td>
                 <td className="px-4 py-3">
                   {r.publishedAt ? (
-                    <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                    <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-full">
                       Published
                     </span>
                   ) : (
-                    <span className="bg-slate-100 text-slate-500 text-xs font-semibold px-2.5 py-1 rounded-full">
+                    <span className="bg-slate-100 dark:bg-stone-800 text-slate-500 dark:text-stone-400 text-xs font-semibold px-2.5 py-1 rounded-full">
                       Draft
                     </span>
                   )}
@@ -54,7 +54,7 @@ export default async function AdminResourcesPage() {
             ))}
             {resources.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-10 text-center text-slate-400">
+                <td colSpan={5} className="px-4 py-10 text-center text-slate-400 dark:text-stone-500">
                   No resources yet.
                 </td>
               </tr>
@@ -63,7 +63,7 @@ export default async function AdminResourcesPage() {
         </table>
       </div>
 
-      <p className="text-sm text-slate-400 mt-4">
+      <p className="text-sm text-slate-400 dark:text-stone-500 mt-4">
         <Link href="/admin" className="hover:underline">
           ← Back to overview
         </Link>

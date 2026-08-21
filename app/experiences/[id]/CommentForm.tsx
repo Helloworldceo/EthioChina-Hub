@@ -11,15 +11,15 @@ export function CommentForm({ postId }: { postId: string }) {
 
   return (
     <form action={formAction} className="space-y-2">
-      {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+      {state.error && <p className="text-sm text-red-600 dark:text-red-400">{state.error}</p>}
       <textarea
         name="body"
         rows={3}
         required
         placeholder="Add a comment..."
-        className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+        className="w-full rounded-lg border border-slate-300 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
       />
-      {state.fieldErrors?.body && <p className="text-xs text-red-600">{state.fieldErrors.body[0]}</p>}
+      {state.fieldErrors?.body && <p className="text-xs text-red-600 dark:text-red-400">{state.fieldErrors.body[0]}</p>}
       <button
         type="submit"
         disabled={pending}

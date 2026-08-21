@@ -11,7 +11,7 @@ export function MobileNav({ children }: { children: React.ReactNode }) {
         onClick={() => setOpen((o) => !o)}
         aria-label="Toggle menu"
         aria-expanded={open}
-        className="text-stone-700 p-1.5 -mr-1.5"
+        className="text-stone-700 dark:text-stone-300 p-1.5 -mr-1.5"
       >
         {open ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -30,7 +30,7 @@ export function MobileNav({ children }: { children: React.ReactNode }) {
       {open && (
         <div
           onClick={() => setOpen(false)}
-          className="absolute top-full right-0 mt-3 w-56 bg-white border border-stone-200 rounded-xl shadow-lg shadow-stone-900/5 px-4 py-3 flex flex-col gap-1 text-sm font-medium text-stone-700 z-30"
+          className="absolute top-full right-0 mt-3 w-56 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl shadow-lg shadow-stone-900/5 px-4 py-3 flex flex-col gap-1 text-sm font-medium text-stone-700 dark:text-stone-300 z-30"
         >
           {children}
         </div>

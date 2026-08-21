@@ -12,11 +12,11 @@ export function MemberRowActions({ id, verified }: { id: string; verified: boole
       <button
         disabled={pending}
         onClick={() => startTransition(() => verifyMember(id, !verified))}
-        className={verified ? "text-amber-600 hover:underline" : "text-emerald-700 hover:underline"}
+        className={verified ? "text-amber-600 dark:text-amber-400 hover:underline" : "text-emerald-700 dark:text-emerald-400 hover:underline"}
       >
         {verified ? "Unverify" : "Verify"}
       </button>
-      <Link href={`/admin/members/${id}`} className="text-slate-600 hover:underline">
+      <Link href={`/admin/members/${id}`} className="text-slate-600 dark:text-stone-400 hover:underline">
         Edit
       </Link>
       <button
@@ -26,7 +26,7 @@ export function MemberRowActions({ id, verified }: { id: string; verified: boole
             startTransition(() => deleteMember(id));
           }
         }}
-        className="text-red-600 hover:underline"
+        className="text-red-600 dark:text-red-400 hover:underline"
       >
         Delete
       </button>

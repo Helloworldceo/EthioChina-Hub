@@ -32,7 +32,7 @@ export function LikeButton({
       onClick={handleClick}
       disabled={pending}
       className={`flex items-center gap-1 text-xs disabled:opacity-60 ${
-        liked ? "text-emerald-700 font-semibold" : "text-slate-400 hover:text-slate-600"
+        liked ? "text-emerald-700 dark:text-emerald-400 font-semibold" : "text-slate-400 dark:text-stone-500 hover:text-slate-600 dark:hover:text-stone-400"
       }`}
     >
       <span>{liked ? "♥" : "♡"}</span>

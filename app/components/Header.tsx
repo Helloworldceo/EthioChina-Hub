@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { auth, signOut } from "@/auth";
 import { MobileNav } from "./MobileNav";
+import { ThemeToggle } from "./ThemeToggle";
 
 function Logo() {
   return (
@@ -13,7 +14,7 @@ function Logo() {
           <path d="M8 8.5L10.5 15.5M16 8.5L13.5 15.5" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
         </svg>
       </span>
-      <span className="font-bold text-[15px] text-stone-900 leading-tight tracking-tight">
+      <span className="font-bold text-[15px] text-stone-900 dark:text-stone-100 leading-tight tracking-tight">
         EthioChina Hub
       </span>
     </Link>
@@ -39,10 +40,10 @@ export async function Header() {
   const session = await auth();
   const user = session?.user;
 
-  const desktopLinkClass = "text-stone-600 hover:text-brand transition-colors";
+  const desktopLinkClass = "text-stone-600 dark:text-stone-300 hover:text-brand dark:hover:text-brand transition-colors";
 
   return (
-    <header className="sticky top-0 z-20 border-b border-stone-200/70 bg-white/85 backdrop-blur-md">
+    <header className="sticky top-0 z-20 border-b border-stone-200/70 dark:border-stone-800/70 bg-white/85 dark:bg-stone-950/85 backdrop-blur-md">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Logo />
 
@@ -79,7 +80,7 @@ export async function Header() {
               <Link href="/dashboard/requests" className={desktopLinkClass}>
                 My Requests
               </Link>
-              <SignOutButton className="text-stone-500 hover:text-stone-800 transition-colors" />
+              <SignOutButton className="text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 transition-colors" />
             </>
           )}
 
@@ -90,58 +91,63 @@ export async function Header() {
               </Link>
               <Link
                 href="/admin"
-                className="bg-stone-900 hover:bg-stone-800 text-white font-semibold px-4 py-2 rounded-lg transition-colors"
+                className="bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white text-white font-semibold px-4 py-2 rounded-lg transition-colors"
               >
                 Admin
               </Link>
-              <SignOutButton className="text-stone-500 hover:text-stone-800 transition-colors" />
+              <SignOutButton className="text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 transition-colors" />
             </>
           )}
+
+          <ThemeToggle />
         </nav>
 
-        <MobileNav>
-          <Link href="/resources" className="py-1.5 hover:text-brand">
-            Resources
-          </Link>
-          <Link href="/experiences" className="py-1.5 hover:text-brand">
-            Experiences
-          </Link>
-          {!user && (
-            <>
-              <Link href="/login" className="py-1.5 hover:text-brand">
-                Log in
-              </Link>
-              <Link href="/register" className="py-1.5 text-brand font-semibold">
-                Join
-              </Link>
-            </>
-          )}
-          {user?.role === "member" && (
-            <>
-              <Link href="/members" className="py-1.5 hover:text-brand">
-                Directory
-              </Link>
-              <Link href="/dashboard" className="py-1.5 hover:text-brand">
-                My Profile
-              </Link>
-              <Link href="/dashboard/requests" className="py-1.5 hover:text-brand">
-                My Requests
-              </Link>
-              <SignOutButton className="py-1.5 text-left text-stone-500" />
-            </>
-          )}
-          {user?.role === "admin" && (
-            <>
-              <Link href="/members" className="py-1.5 hover:text-brand">
-                Directory
-              </Link>
-              <Link href="/admin" className="py-1.5 hover:text-brand">
-                Admin
-              </Link>
-              <SignOutButton className="py-1.5 text-left text-stone-500" />
-            </>
-          )}
-        </MobileNav>
+        <div className="flex items-center gap-3 md:hidden">
+          <ThemeToggle />
+          <MobileNav>
+            <Link href="/resources" className="py-1.5 hover:text-brand">
+              Resources
+            </Link>
+            <Link href="/experiences" className="py-1.5 hover:text-brand">
+              Experiences
+            </Link>
+            {!user && (
+              <>
+                <Link href="/login" className="py-1.5 hover:text-brand">
+                  Log in
+                </Link>
+                <Link href="/register" className="py-1.5 text-brand font-semibold">
+                  Join
+                </Link>
+              </>
+            )}
+            {user?.role === "member" && (
+              <>
+                <Link href="/members" className="py-1.5 hover:text-brand">
+                  Directory
+                </Link>
+                <Link href="/dashboard" className="py-1.5 hover:text-brand">
+                  My Profile
+                </Link>
+                <Link href="/dashboard/requests" className="py-1.5 hover:text-brand">
+                  My Requests
+                </Link>
+                <SignOutButton className="py-1.5 text-left text-stone-500 dark:text-stone-400" />
+              </>
+            )}
+            {user?.role === "admin" && (
+              <>
+                <Link href="/members" className="py-1.5 hover:text-brand">
+                  Directory
+                </Link>
+                <Link href="/admin" className="py-1.5 hover:text-brand">
+                  Admin
+                </Link>
+                <SignOutButton className="py-1.5 text-left text-stone-500 dark:text-stone-400" />
+              </>
+            )}
+          </MobileNav>
+        </div>
       </div>
     </header>
   );

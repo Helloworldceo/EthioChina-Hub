@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-stone-200 bg-white mt-20">
+    <footer className="border-t border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-950 mt-20">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
         <div className="grid sm:grid-cols-3 gap-10">
           <div>
@@ -15,19 +15,19 @@ export function Footer() {
                   <path d="M8 8.5L10.5 15.5M16 8.5L13.5 15.5" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
                 </svg>
               </span>
-              <span className="font-bold text-stone-900">EthioChina Hub</span>
+              <span className="font-bold text-stone-900 dark:text-stone-100">EthioChina Hub</span>
             </div>
-            <p className="text-sm text-stone-500 leading-relaxed max-w-xs">
+            <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed max-w-xs">
               A community platform for Ethiopians in China — connect, find resources, and get
               support, wherever you are in the country.
             </p>
           </div>
 
           <div>
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-3">
+            <p className="text-xs font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-wide mb-3">
               Community
             </p>
-            <ul className="space-y-2 text-sm text-stone-600">
+            <ul className="space-y-2 text-sm text-stone-600 dark:text-stone-400">
               <li>
                 <Link href="/resources" className="hover:text-brand transition-colors">
                   Resources
@@ -47,10 +47,10 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold text-stone-400 uppercase tracking-wide mb-3">
+            <p className="text-xs font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-wide mb-3">
               Get Help
             </p>
-            <ul className="space-y-2 text-sm text-stone-600">
+            <ul className="space-y-2 text-sm text-stone-600 dark:text-stone-400">
               <li>
                 <Link href="/dashboard/requests" className="hover:text-brand transition-colors">
                   Submit a support request
@@ -65,15 +65,15 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-stone-100 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-stone-400">
+        <div className="border-t border-stone-100 dark:border-stone-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-stone-400 dark:text-stone-500">
             &copy; {new Date().getFullYear()} EthioChina Hub. Built for the community.
           </p>
           <a
             href="https://github.com/Helloworldceo/EthioChina-Hub"
             target="_blank"
             rel="noreferrer"
-            className="text-xs text-stone-400 hover:text-brand transition-colors"
+            className="text-xs text-stone-400 dark:text-stone-500 hover:text-brand transition-colors"
           >
             GitHub
           </a>

@@ -19,7 +19,7 @@ export default async function ExperiencesPage() {
           Share your experience
         </Link>
       </div>
-      <p className="text-slate-600 text-sm mb-8">
+      <p className="text-slate-600 dark:text-stone-400 text-sm mb-8">
         Stories, tips, and experiences from verified members of the community.
       </p>
 
@@ -27,18 +27,18 @@ export default async function ExperiencesPage() {
         {posts.map((p) => (
           <div
             key={p.id}
-            className="bg-white rounded-2xl border border-slate-200 p-6 hover:border-emerald-300 transition-colors"
+            className="bg-white dark:bg-stone-900 rounded-2xl border border-slate-200 dark:border-stone-800 p-6 hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors"
           >
             <Link href={`/experiences/${p.id}`} className="block mb-3">
-              <h2 className="text-lg font-semibold text-slate-900 mb-1">{p.title}</h2>
-              <p className="text-slate-600 text-sm line-clamp-2">{p.body}</p>
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-stone-100 mb-1">{p.title}</h2>
+              <p className="text-slate-600 dark:text-stone-400 text-sm line-clamp-2">{p.body}</p>
             </Link>
             <div className="flex items-center gap-2">
               <Link href={`/members/${p.author.id}`}>
                 <Avatar name={p.author.name} photoUrl={p.author.photoUrl} size={24} />
               </Link>
-              <p className="text-xs text-slate-400">
-                <Link href={`/members/${p.author.id}`} className="hover:text-emerald-700 hover:underline">
+              <p className="text-xs text-slate-400 dark:text-stone-500">
+                <Link href={`/members/${p.author.id}`} className="hover:text-emerald-700 dark:hover:text-emerald-400 hover:underline">
                   {p.author.name}
                 </Link>
                 {p.author.university && ` · ${p.author.university}`}
@@ -50,7 +50,7 @@ export default async function ExperiencesPage() {
           </div>
         ))}
         {posts.length === 0 && (
-          <p className="text-center text-slate-400 py-16">
+          <p className="text-center text-slate-400 dark:text-stone-500 py-16">
             No experiences shared yet — be the first.
           </p>
         )}
